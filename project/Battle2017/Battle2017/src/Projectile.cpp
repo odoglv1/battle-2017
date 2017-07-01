@@ -15,6 +15,8 @@ Projectile::Projectile(bool isRed, bool isLeft, float _x, float _y) {
 
 	this->x = _x;
 	this->y = _y;
+
+	//shouldDelete = false;
 }
 
 void Projectile::setup(bool isRed, bool isLeft, float _x, float _y) {
@@ -31,6 +33,7 @@ void Projectile::setup(bool isRed, bool isLeft, float _x, float _y) {
 
 	this->x = _x;
 	this->y = _y;
+	//shouldDelete = false;
 }
 
 void Projectile::update() {

@@ -39,26 +39,34 @@ void ofApp::update(){
 		p1.update();
 
 			for (Projectile &p : activeProjectiles) {
-				//p.update();
-				if (p.isLeftPublic) {
-					float g = p.getX();
-					float f = g - (60);
-					p.setX(f);
-					//std::cout << "UPDATED PROJECTILE - 60" << std::endl;
-					//std::cout << p.getX() << " to " << p.getX() - (60) << std::endl;
-				}
-				else if (!p.isLeftPublic) {
-					float g = p.getX();
-					float f = g + (60);
-					p.setX(f);
-					//std::cout << "UPDATED PROJECTILE + 60" << std::endl;
-					//std::cout << p.getX() << " to " << p.getX() - (60) << std::endl;
-				}
+				if (!(p.getX() < 0 || p.getX() + p.getImage().getWidth() > ofGetWindowWidth())) {
+					//p.update();
+					if (p.isLeftPublic) {
+						float g = p.getX();
+						float f = g - (60);
+						p.setX(f);
+						//std::cout << "UPDATED PROJECTILE - 60" << std::endl;
+						//std::cout << p.getX() << " to " << p.getX() - (60) << std::endl;
+					}
+					else if (!p.isLeftPublic) {
+						float g = p.getX();
+						float f = g + (60);
+						p.setX(f);
+						//std::cout << "UPDATED PROJECTILE + 60" << std::endl;
+						//std::cout << p.getX() << " to " << p.getX() - (60) << std::endl;
+					}
 
-				if (p.getX() < 0 || p.getX() + p.getImage().getWidth() > ofGetWindowWidth()) {
-					//Remove p from std::vector activeProjectiles
+					if (p.isRedPublic) {
+						//TODO damage
+					}
+				}
+				else {
+					//p.shouldDelete = true;
 				}
 			}
+
+			//activeProjectiles.erase(std::remove(activeProjectiles.begin(), activeProjectiles.end(), to_remove), activeProjectiles.end());
+
 		backgroundImage.resize(ofGetWindowWidth(), ofGetWindowHeight());
 
 		//Check collision
@@ -109,8 +117,10 @@ void ofApp::draw(){
 		}
 
 		//if (redProj || blueProj) {
-			for (Projectile p : activeProjectiles) {
-				p.getImage().draw(p.getX(), p.getY());
+			for (Projectile &p : activeProjectiles) {
+				if (!(p.getX() < 0 || p.getX() + p.getImage().getWidth() > ofGetWindowWidth())) {
+					p.getImage().draw(p.getX(), p.getY());
+				}
 				//std::cout << "DRAWING!" << p.getX() << std::endl;
 			}
 		//}

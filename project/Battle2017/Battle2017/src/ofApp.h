@@ -48,4 +48,6 @@ class ofApp : public ofBaseApp{
 
 		vector<Projectile> activeProjectiles;
 		//std::vector<Projectile>::iterator it;
+
+		//Projectile to_remove;
 };
