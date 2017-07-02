@@ -26,7 +26,9 @@ void ofApp::setup(){
 	backgroundImage.load("ext/sky.jpg");
 	backgroundImage.resize(ofGetWindowWidth(), ofGetWindowHeight());
 	red.setup(true);
+	red.didLastMoveLeft = true;
 	blue.setup(false);
+	blue.didLastMoveLeft = false;
 	p1.setup(0, ofGetWindowHeight() - (64));
 	ofSetWindowTitle("Battle2017");
 }
@@ -39,7 +41,7 @@ void ofApp::update(){
 		p1.update();
 
 			for (Projectile &p : activeProjectiles) {
-				if (!(p.getX() < 0 || p.getX() + p.getImage().getWidth() > ofGetWindowWidth())) {
+				if (!(p.getX() < 0 || p.getX() + p.getImage().getWidth() > ofGetWindowWidth()) && running) {
 					//p.update();
 					if (p.isLeftPublic) {
 						float g = p.getX();
@@ -57,7 +59,55 @@ void ofApp::update(){
 					}
 
 					if (p.isRedPublic) {
-						//TODO damage
+						if (p.getX() > blue.getX() && p.getX() < blue.getX() + blue.getImage().getWidth()) {
+							//std::cout << "yes1" << std::endl;
+							if (p.getY() >= blue.getY() && p.getY() + p.getImage().getHeight() <= blue.getY() + blue.getImage().getHeight()) { //If red and blue's heights are close enough together
+								blue.health -= 1;
+								showingDamage2 = true;
+								damageLength2 = 0;
+								float n = p.getX() - 10000;
+								p.setX(n);
+								//std::cout << "YES" << std::endl;
+							}
+						}
+
+						if (blue.getX() > p.getX() && blue.getX() < p.getX() + p.getImage().getWidth()) {
+							//std::cout << "yes2" << std::endl;
+							if (p.getY() >= blue.getY() && p.getY() + p.getImage().getHeight() <= blue.getY() + blue.getImage().getHeight()) { //If red and blue's heights are close enough together
+								blue.health -= 1;
+								showingDamage2 = true;
+								damageLength2 = 0;
+								float n = p.getX() - 10000;
+								p.setX(n);
+								//std::cout << "YES" << std::endl;
+							}
+						}
+					}
+
+					if (!(p.isRedPublic)) {
+						if (p.getX() > red.getX() && p.getX() < red.getX() + red.getImage().getWidth()) {
+							//std::cout << "yes1" << std::endl;
+							if (p.getY() >= red.getY() && p.getY() + p.getImage().getHeight() <= red.getY() + red.getImage().getHeight()) { //If red and blue's heights are close enough together
+								red.health -= 1;
+								showingDamage1 = true;
+								damageLength1 = 0;
+								float n = p.getX() - 10000;
+								p.setX(n);
+								//std::cout << "YES" << std::endl;
+							}
+						}
+
+						if (red.getX() > p.getX() && red.getX() < p.getX() + p.getImage().getWidth()) {
+							//std::cout << "yes2" << std::endl;
+							if (p.getY() >= red.getY() && p.getY() + p.getImage().getHeight() <= red.getY() + red.getImage().getHeight()) { //If red and blue's heights are close enough together
+								red.health -= 1;
+								showingDamage1 = true;
+								damageLength1 = 0;
+								float n = p.getX() - 10000;
+								p.setX(n);
+								//std::cout << "YES" << std::endl;
+							}
+						}
 					}
 				}
 				else {
@@ -118,7 +168,7 @@ void ofApp::draw(){
 
 		//if (redProj || blueProj) {
 			for (Projectile &p : activeProjectiles) {
-				if (!(p.getX() < 0 || p.getX() + p.getImage().getWidth() > ofGetWindowWidth())) {
+				if (!(p.getX() < 0 || p.getX() + p.getImage().getWidth() > ofGetWindowWidth()) && running) {
 					p.getImage().draw(p.getX(), p.getY());
 				}
 				//std::cout << "DRAWING!" << p.getX() << std::endl;
