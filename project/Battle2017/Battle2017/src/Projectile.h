@@ -1,11 +1,11 @@
-#pragma once
-#include "ofMain.h"
+#pragma once //Standard pragma once declaration
+#include "ofMain.h" //openFrameworks objects & library
 
-class Projectile {
-public:
-	float x, y;
-	bool isRedPublic, isLeftPublic;
-	ofImage projectileImage;
+class Projectile { //Projectile class prototype
+public: //public methods, variables
+	float x, y; //the x and y of the projectile in the game
+	bool isRedPublic, isLeftPublic; //whether or not the projectile is red, and whether or not it is traveling left
+	ofImage projectileImage; //the projectile's image
 
 	Projectile(bool isRed, bool isLeft, float _x, float _y);
 

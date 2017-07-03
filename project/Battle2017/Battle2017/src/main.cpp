@@ -1,14 +1,14 @@
-#include "ofMain.h"
-#include "ofApp.h"
+#include "ofMain.h" //openFrameworks objects & library
+#include "ofApp.h" //the application itself
 
-//========================================================================
-int main( ){
-	ofSetupOpenGL(1024*2,768*2,OF_FULLSCREEN);			// <-------- setup the GL context
+/*
+C++ main method.
 
-	// this kicks off the running of my app
-	// can be OF_WINDOW or OF_FULLSCREEN
-	// pass in width and height too:
+Initializes the openFrameworks GL context, and starts the application.
+
+For some reason, return 0 breaks the app. So, don't add it in. Pray that the compiler will do it for you.
+*/
+int main(void){
+	ofSetupOpenGL(1024*2,768*2,OF_FULLSCREEN);
 	ofRunApp(new ofApp());
-
-	//return 0;
 }
